@@ -39,6 +39,41 @@ class DynamicArray:
 		self.array[self.size] = val
 		self.size += 1
 
+	def pop(self, i=None):
+		'''
+		Returns the specified element at position i. If i is not specified, the 
+		last element is returned. In addition, the specified element at location
+		i is removed from the list.
+		'''
+
+		if i:
+			if not self._checkIndexRange(i):
+				return IndexError('Index is out of bounds')
+			val = self.array[i]
+			for j in range(i, self.size-1):
+				self.array[j] = self.array[j+1]
+				self.size -= 1
+				return val
+		else:
+			self.size -= 1
+			return self.array[self.size]
+
+	def insert(self, val, i):
+		'''
+		Inserts a val at index i. Returns nothing.
+		'''
+		if not self._checkIndexRange(i):
+			return IndexError('Index is out of bounds')
+
+		if self.size == self.capacity:
+			self._resize(self.capacity * 2)
+
+		for j in range(self.size-1, i-1, -1):
+			self.array[j+1] = self.array[j]
+
+		self.array[i] = val
+		self.size += 1
+
 	def create_array(self, cap):
 		'''
 		Returns a new array of the current capacity
@@ -51,7 +86,20 @@ class DynamicArray:
 		Private function that resizes the array when it reaches
 		capacity
 
-		---> To implement
 		'''
 
-		return
+		new_array = self.create_array(cap)
+		for i in range(self.size):
+			new_array[i] = self.array[i]
+		self.array = new_array
+
+		self.capacity = cap
+
+	def _checkIndexRange(self, i):
+		'''
+		Private function that checks if an index is out of bounds or not.
+		Returns True if is within the valid range. False otherwise.
+		'''
+
+		return i >= 0 and i < self.size
+
