@@ -2,14 +2,14 @@ import ctypes
 
 class DynamicArray:
 	'''
-	Custom version of the array already implemented in Python as a list. Uses
+	Ground up version of the array already implemented in Python as a list. Uses
 	ctypes to build the raw memory allocation.
 	'''
 
 	def __init__(self):
 		self.size = 0
 		self.capacity = 1
-		self.array = self.create_array(self.capacity)
+		self.array = self._create_array(self.capacity)
 
 
 	def __len__(self):
@@ -74,7 +74,20 @@ class DynamicArray:
 		self.array[i] = val
 		self.size += 1
 
-	def create_array(self, cap):
+
+	def index(self, val):
+		'''
+		Returns the index of the first item in the list that matches val.
+		Raises a ValueError if val is not in the array.
+		'''
+
+		for i in range(self.size):
+			if self.array[i] == val:
+				return i
+
+		return ValueError('Value not found in the array')
+
+	def _create_array(self, cap):
 		'''
 		Returns a new array of the current capacity
 		'''
@@ -88,7 +101,7 @@ class DynamicArray:
 
 		'''
 
-		new_array = self.create_array(cap)
+		new_array = self._create_array(cap)
 		for i in range(self.size):
 			new_array[i] = self.array[i]
 		self.array = new_array
