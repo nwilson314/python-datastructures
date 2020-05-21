@@ -4,6 +4,8 @@ class DynamicArray:
 	'''
 	Ground up version of the array already implemented in Python as a list. Uses
 	ctypes to build the raw memory allocation.
+
+	Currently only implemented for 1-dim.
 	'''
 
 	def __init__(self):
