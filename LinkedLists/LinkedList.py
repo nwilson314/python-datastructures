@@ -2,7 +2,7 @@ from Node import Node
 
 class LinkedList:
 	'''
-	Implementation of a singly linked list.
+	Implementation of a singly linked list without a tail pointer.
 	'''
 	def __init__(self):
 		self.head = None
@@ -112,6 +112,78 @@ class LinkedList:
 		if self.is_empty():
 			return None
 		return self.value_at(self.size - 1)
+
+	def insert(self, val, i):
+		'''
+		Inserts val at index i of the linked list
+		'''
+		if i < 0 or i > self.size:
+			raise IndexError('Index out of range')
+
+		if i == 0:
+			self.push_front(val)
+		elif i == self.size:
+			self.push_back(val)
+		else:
+			index = 0
+			temp = self.head
+
+			while index < i - 1:
+				temp = temp.next
+				index += 1
+			node = Node(val)
+			node.next = temp.next
+			temp.next = node
+
+	def remove_at(self, i):
+		'''
+		Removes the value at position i
+		'''
+
+		if i < 0 or i >= self.size:
+			raise IndexError('Index out of range')
+
+		if i == 0:
+			self.pop_front(val)
+		elif i == self.size - 1:
+			self.pop_back(val)
+		else:
+			index = 0
+			temp = self.head
+
+			while index < i - 1:
+				temp = temp.next
+				index += 1
+			temp.next = temp.next.next
+
+	def print_list(self):
+		'''
+		Prints the list the form of an array.
+		'''
+
+		s = '['
+		temp = self.head
+		while temp != None:
+			if temp.next != None:
+				s += str(temp.val) + ', '
+			else:
+				s += str(temp.val)
+			temp = temp.next
+		s += ']'
+
+		return s
+
+
+	def __str__(self):
+		'''
+		Overwrites the __str__ function in order to print the whole list
+		'''
+
+		return self.print_list()
+		
+
+
+
 
 
 

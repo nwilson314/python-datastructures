@@ -72,3 +72,54 @@ class TestLinkedList:
 		l.push_back(3)
 
 		assert l.back() == 3
+
+	def test_insert1(self):
+		l = LinkedList()
+
+		l.push_back(1)
+		l.push_back(2)
+		l.push_back(3)
+
+		i = 1
+
+		l.insert(5, i)
+
+		assert l.value_at(i) == 5
+
+	def test_insert2(self):
+		l = LinkedList()
+
+		l.push_back(1)
+		l.push_back(2)
+		l.push_back(3)
+
+		i = 1
+
+		l.insert(5, i)
+
+		assert l.value_at(i+1) == 2
+
+
+	def test_print_list(self):
+		l = LinkedList()
+		l.push_front(1)
+		l.push_front(2)
+		l.push_front(3)
+
+		i = 1
+
+		l.insert(5, i)
+
+		assert l.print_list() == '[3, 5, 2, 1]'
+
+	def test_remove_at1(self):
+		l = LinkedList()
+		l.push_front(1)
+		l.push_front(2)
+		l.push_front(3)
+
+		l.remove_at(1)
+
+		assert l.print_list() == '[3, 1]'
+
+
