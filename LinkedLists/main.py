@@ -1,5 +1,6 @@
 import pytest
 from LinkedList import LinkedList
+from LinkedListTail import LinkedListTail
 
 class TestLinkedList:
 	def test_is_empty(self):
@@ -122,4 +123,7 @@ class TestLinkedList:
 
 		assert l.print_list() == '[3, 1]'
 
-
+class TestLinkedListTail:
+	def test_init(self):
+		l = LinkedListTail()
+		assert l.get_size() == 0
