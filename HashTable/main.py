@@ -28,9 +28,20 @@ class TestHashTable:
 		m = 11
 		h = HashTable(m=m)
 
-		for i in range(m):
+		for i in range(m-2):
 			h.insert(i, i+1)
 
 		assert h.get(5) == 6
+
+	def test_remove1(self):
+		m = 11
+		h = HashTable(m=m)
+
+		for i in range(m):
+			h.insert(i, i+1)
+
+		h.remove(5)
+
+		assert h.get(5) == None
 
 

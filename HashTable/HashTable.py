@@ -55,6 +55,8 @@ class HashTable:
 
 			if self.T[j] == None:
 				return None
+			elif self.T[j] == HashTable._AVAIL:
+				pass
 			elif self.T[j][0] == key:
 				return self.T[j][1]
 			i += 1
@@ -75,7 +77,17 @@ class HashTable:
 		Removes the key and its associated value from the table. In this
 		implementation, a "deleted" flag is set at its location.
 		'''
-		pass
+		i = 0
+		while i < self.m:
+			j = self._hash(key, i)
+			if self.T[j] == None:
+				break
+			elif self.T[j] == HashTable._AVAIL:
+				pass
+			elif self.T[j][0] == key:
+				self.T[j] = HashTable._AVAIL
+				break
+			i += 1
 
 	def _resize(self, size):
 		'''
