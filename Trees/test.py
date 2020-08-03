@@ -41,9 +41,30 @@ class TestBST:
 	def test_min(self):
 		b = create_tree()
 
-		assert b.get_min() == 2
+		assert b.get_min().val == 2
 
 	def test_max(self):
 		b = create_tree()
 
-		assert b.get_max() == 11
+		assert b.get_max().val == 11
+
+	def test_delete1(self):
+		b = create_tree()
+
+		b.delete_value(7)
+
+		assert b.print_tree() == '2 3 3.5 4 5 8 10 11'
+
+	def test_delete2(self):
+		b = create_tree()
+
+		b.delete_value(8)
+
+		assert b.print_tree() == '2 3 3.5 4 5 7 10 11'
+
+	def test_delete2(self):
+		b = create_tree()
+
+		b.delete_value(5)
+
+		assert b.print_tree() == '2 3 3.5 4 7 8 10 11'

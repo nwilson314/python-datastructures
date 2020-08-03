@@ -8,7 +8,9 @@ class Node:
 		self.right = None
 
 class BST:
-	'''Implementation of a binary search tree'''
+	'''Implementation of a binary search tree. Uses a mix of recursion and loops
+	to practice both.
+	'''
 
 	def __init__(self):
 		self.root = None
@@ -51,29 +53,55 @@ class BST:
 			return self._is_in_tree(node.right, val)
 
 	def get_min(self):
-		temp = self.root
+		if self.root == None:
+			return None
 
-		if temp == None:
-			raise ValueError('The tree is empty!')
+		return self._get_min(self.root)
 
-		while temp != None:
-			temp2 = temp
-			temp = temp.left
-
-		return temp2.val
-
+	def _get_min(self, node):
+		if node.left == None:
+			return node
+		return self._get_min(node.left)
 
 	def get_max(self):
-		temp = self.root
+		if self.root == None:
+			return None
+		return self._get_max(self.root)
 
-		if temp == None:
-			raise ValueError('The tree is empty!')
+	def _get_max(self, node):
+		if node.right == None:
+			return node
+		return self._get_max(node.right)
 
-		while temp != None:
-			temp2 = temp
-			temp = temp.right
+	def delete_value(self, val):
+		'''Deletes the specified value from the tree and returns its value'''
+		self.root = self._delete(self.root, val)
 
-		return temp2.val
+	def _delete(self, node, val):
+		'''Recursive deletion helper'''
+		if node == None:
+			# value not in tree
+			return node
+		if val < node.val:
+			node.left = self._delete(node.left, val)
+		elif val > node.val:
+			node.right = self._delete(node.right, val)
+		else:
+			# Found node
+			if not node.left:
+				temp = node.right
+				node = None
+				return temp
+			elif not node.right:
+				temp = node.left
+				node = None
+				return temp
+			else:
+				# Two children
+				temp = self._get_max(node.left)
+				node.val = temp.val
+				node.left = self._delete(node.left, temp.val)
+		return node
 
 
 	def get_node_count(self):
