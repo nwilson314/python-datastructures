@@ -9,11 +9,7 @@ class HashTable:
 	to store values), linear probing with a universal hash function has O(lgn)
 	search, inserts, and deletes. A more efficient method costwise (but at the 
 	cost of a space efficiency) is to use a double hashing method instead of 
-	linear probing.  
-
-	To do:
-	- add a helper to loop through hash values until one is open
-	- change to double hashing
+	linear probing.
 	'''
 
 	_AVAIL = object()				# Deletion mark
