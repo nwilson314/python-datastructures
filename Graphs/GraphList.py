@@ -21,14 +21,54 @@ class UndirectedGraphList:
         '''
         Generator that returns the next vertex in the adjacency list
         '''
-        for vertex in self.adj_list:
+        for vertex in sorted(self.adj_list):
             yield vertex
 
     def get_neighbor(self, vertex):
         '''
         Generator that returns the next vertex adjacent to the given vertex
         '''
-        if vertex in self.adj_list:
-            for neighbor in self.adj_list[vertex]:
+        if vertex in sorted(self.adj_list):
+            for neighbor in sorted(self.adj_list[vertex]):
                 yield neighbor
+
+    def dfs_iterative(self):
+        '''
+        Returns the parents of each node as determined by DFS.
+        '''
+        parents = {}
+        visit_stack = []
+
+        for vertex in self.get_vertex():
+
+            visit_stack.append(vertex)
+
+            while visit_stack:
+                v = visit_stack.pop()
+
+                for neighbor in self.get_neighbor(v):
+                    if neighbor not in parents:
+                        parents[neighbor] = v
+                        visit_stack.append(neighbor)
+        return parents
+
+    def dfs_recursive(self):
+        '''
+        Returns the parents of each node as determined by DFS.
+        '''
+
+        parents = {}
+
+        for vertex in self.get_vertex():
+            if vertex not in parents:
+                self._dfs_util(vertex, parents)
+
+        return parents
+
+    def _dfs_util(self, vertex, parents):
+        for neighbor in self.get_neighbor(vertex):
+            if neighbor not in parents:
+                parents[neighbor] = vertex
+                self._dfs_util(neighbor, parents)
+
         
